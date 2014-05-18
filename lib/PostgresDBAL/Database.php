@@ -29,7 +29,7 @@ class Database
 	 *
 	 * @return DatabaseRawConnection
 	 */
-	static public function connect($dbname, $user, $password='', $host='')
+	static public function connect($dbname, $user, $password = '', $host = '')
 	{
 		$connection_string = 'dbname=' . $dbname;
 		$connection_string .= ' user=' . $user;
