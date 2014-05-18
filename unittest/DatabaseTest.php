@@ -1,6 +1,13 @@
 <?php
 
-class DatabaseTest extends PHPUnit_Framework_TestCase
+require_once '../vendor/autoload.php';
+require_once 'PHPUnit/Autoload.php';
+require_once 'Config.php';
+
+use PostgresDBAL\Database;
+use PostgresDBAL\DatabaseException;
+
+class DatabaseTest extends \PHPUnit_Framework_TestCase
 {
 	private static $test_tablename;
 
@@ -25,7 +32,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
 	public static function setUpBeforeClass()
 	{
 		set_error_handler('DatabaseTest::trap_error_handler');
-		self::$connection = Yurnit::GetDatabaseConnection();
+		self::$connection = self::GetDatabaseConnection();
 		self::$test_tablename = 'unittest_' . time();
 		self::$test_versiontablename = 'unittest_version_' . time();
 	}
@@ -40,8 +47,9 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
     public static function GetDatabaseConnection()
     {
 		// Lazy create the singleton connection
-		if (is_null(self::$singletonConnection)) {
-			self::$singletonConnection = Database::connect(DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST); 
+		if (is_null(self::$singletonConnection))
+		{
+			self::$singletonConnection = Database::connect(DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST);
 		}
 
 		// Return the singleton connection
@@ -86,7 +94,6 @@ SQL;
 		$this->assertEquals (1, $result->num_rows());
 
 		// Test that the connection throws an exception on commit
-		$caught = false;
 		try
 		{
 			self::$connection->commit();
@@ -94,12 +101,10 @@ SQL;
 		}
 		catch(DatabaseException $e)
 		{
-			$caught = true;
+			$this->assertTrue(true);
 		}
-		$this->assertTrue($caught);
 
 		// Test that the connection throws an exception on rollback
-		$caught = false;
 		try
 		{
 			self::$connection->rollback();
@@ -107,9 +112,8 @@ SQL;
 		}
 		catch(DatabaseException $e)
 		{
-			$caught = true;
+			$this->assertTrue(true);
 		}
-		$this->assertTrue($caught);
 	}
 }
 
