@@ -399,7 +399,6 @@ class DatabaseRawConnection implements DatabaseConnection
 			), $deleteCondition );
 		}
 	}
-	
 
 	public function get_transaction()
 	{

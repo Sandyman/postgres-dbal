@@ -19,6 +19,16 @@ namespace PostgresDBAL;
 //
 class Database
 {
+	/**
+	 * Create a database connection
+	 *
+	 * @param string $dbname
+	 * @param string $user
+	 * @param string $password
+	 * @param string $host
+	 *
+	 * @return DatabaseRawConnection
+	 */
 	static public function connect($dbname, $user, $password='', $host='')
 	{
 		$connection_string = 'dbname=' . $dbname;
@@ -28,7 +38,6 @@ class Database
 		{
 			$connection_string .= ' host=' . $host;
 		}
-
 		return new DatabaseRawConnection($connection_string);
 	}
 }

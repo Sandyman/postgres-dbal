@@ -1,4 +1,5 @@
 <?php
+
 # Copyright (c) 2013 Richard Chipper, Sander Huijsen
 # All rights reserved.
 #
@@ -99,7 +100,8 @@ class DatabaseTransaction implements DatabaseConnection
 	 * (non-PHPdoc)
 	 * @see DatabaseConnection::exists_or_insert()
 	 */
-	public function exists_or_insert($tablename, array $record) {
+	public function exists_or_insert($tablename, array $record)
+	{
 		if ($this->transaction_complete) throw new DatabaseException("Transaction already finished");
 		return $this->parent_connection->exists_or_insert($tablename, $record);
 	}
@@ -108,7 +110,8 @@ class DatabaseTransaction implements DatabaseConnection
 	 * (non-PHPdoc)
 	 * @see DatabaseConnection::record_version()
 	 */
-	public function record_version($tableName, array $valueFields, array $whereFields) {
+	public function record_version($tableName, array $valueFields, array $whereFields)
+	{
 		if ($this->transaction_complete) throw new DatabaseException("Transaction already finished");
 		return $this->parent_connection->record_version($tableName, $valueFields, $whereFields);
 	}
@@ -117,7 +120,8 @@ class DatabaseTransaction implements DatabaseConnection
 	 * (non-PHPdoc)
 	 * @see DatabaseConnection::mark_versions_deleted()
 	 */
-	public function mark_versions_deleted($tableName, $matchFieldName, array $continuedValues, array $whereFields) {
+	public function mark_versions_deleted($tableName, $matchFieldName, array $continuedValues, array $whereFields)
+	{
 		if ($this->transaction_complete) throw new DatabaseException("Transaction already finished");
 		return $this->parent_connection->mark_versions_deleted($tableName, $matchFieldName, $continuedValues, $whereFields);
 	}
@@ -164,3 +168,5 @@ class DatabaseTransaction implements DatabaseConnection
 		return true;
 	}
 }
+
+?>
