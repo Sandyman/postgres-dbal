@@ -21,14 +21,16 @@ namespace PostgresDBAL;
 /**
  * Interface DatabaseConnection
  */
-interface DatabaseConnection {
+
+interface DatabaseConnection
+{
 	/**
 	 *
 	 * @param string $sql        	
 	 * @return DatabaseResult
 	 */
 	public function query($sql);
-	
+
 	/**
 	 *
 	 * @param string $tablename        	
@@ -36,7 +38,7 @@ interface DatabaseConnection {
 	 * @return DatabaseResult
 	 */
 	public function select($tablename, array $where_record);
-	
+
 	/**
 	 *
 	 * @param string $tablename        	
@@ -44,7 +46,7 @@ interface DatabaseConnection {
 	 * @return DatabaseResult
 	 */
 	public function insert($tablename, array $record);
-	
+
 	/**
 	 *
 	 * @param string $tablename        	
@@ -52,7 +54,7 @@ interface DatabaseConnection {
 	 * @return int
 	 */
 	public function insert_return_id($tablename, array $record);
-	
+
 	/**
 	 *
 	 * @param string $tablename        	
@@ -61,7 +63,7 @@ interface DatabaseConnection {
 	 * @return DatabaseResult
 	 */
 	public function update($tablename, array $update_record, array $where_record);
-	
+
 	/**
 	 *
 	 * @param string $tablename        	
@@ -70,7 +72,7 @@ interface DatabaseConnection {
 	 * @return DatabaseResult
 	 */
 	public function update_or_insert($tablename, array $set_record, array $where_record);
-	
+
 	/**
 	 * Checks whether the record is in the table and if not inserts it.
 	 *
@@ -81,7 +83,7 @@ interface DatabaseConnection {
 	 * @return int The row ID for the existing or newly inserted row
 	 */
 	public function exists_or_insert($tablename, array $record);
-	
+
 	/**
 	 * <p>
 	 * Records a version within the database.
@@ -101,7 +103,7 @@ interface DatabaseConnection {
 	 * @return int The number of rows inserted
 	 */
 	public function record_version($tableName, array $valueFields, array $whereFields);
-	
+
 	/**
 	 * <p>
 	 * Closes off all versions that no longer exist (typically because the item being versioned is deleted).
@@ -122,24 +124,27 @@ interface DatabaseConnection {
 	 *        	Field values to find all versions within scope.
 	 */
 	public function mark_versions_deleted($tableName, $matchFieldName, array $continuedValues, array $whereFields);
-	
+
 	/**
 	 *
 	 * @return DatabaseTransaction
 	 */
 	public function get_transaction();
-	
+
 	/**
+	 * Commit a transaction
 	 */
 	public function commit();
-	
+
 	/**
+	 * Transaction rollback
 	 */
 	public function rollback();
-	
+
 	/**
+	 * Determine whether connection is a transaction
 	 *
-	 * @return bool
+	 * @return bool if transaction, false otherwise
 	 */
 	public function is_transaction();
 }
